@@ -1,34 +1,42 @@
 # Azure Monitoring + Alerts (Log Analytics + KQL) — Azure Portal Only (AZ-104)
 
 ## Goal
-Enable monitoring for an existing VM (`vm-mgmt-01`), send platform + guest signals to Log Analytics, and trigger an alert when heartbeat stops (validated end-to-end).
+Monitor an existing VM (`vm-mgmt-01`) using Azure Monitor + Log Analytics and trigger an email alert when heartbeat stops (availability signal).
 
 ## Scenario
-Operations needs visibility and alerting for a critical VM:
-- Collect logs/metrics into **Log Analytics Workspace**
-- Query via **KQL**
-- Alert when the VM stops reporting heartbeats
-- Notify via **Action Group (Email)**
+Ops needs a simple, reliable alert for VM availability:
+- Collect telemetry into a Log Analytics Workspace
+- Validate ingestion using KQL (Heartbeat)
+- Create a log alert that fires when Heartbeat is missing for >15 minutes
+- Notify via an Action Group (Email)
 
 ## Architecture
-- VM: `vm-mgmt-01` (existing)
+- Monitored VM: `vm-mgmt-01` (existing from VNet/NSG lab)
 - Log Analytics Workspace: `law-monitoring-lab`
-- VM Insights + Azure Monitor Agent (AMA)
-- Data Collection Rule (DCR) targeting the VM
-- Log alert rule: `alert-heartbeat-missing-vm-mgmt-01`
-- Action group: `ag-email-monitoring` (email)
+- Data collection: VM Insights / Azure Monitor Agent (AMA) + Data Collection Rule (DCR)
+- Alert rule: `alert-heartbeat-missing-vm-mgmt-01` (log search alert)
+- Action group: `ag-email-monitoring` (email notification)
 
-See: `diagrams/README.md`
+Diagram: `diagrams/README.md`
 
 ## What I implemented (Portal)
-- Created Log Analytics Workspace and enabled VM monitoring (AMA/VM Insights)
-- Created/linked DCR to collect required data
-- Built KQL query for Heartbeat detection
-- Created Log Alert Rule (15 min missing heartbeat)
-- Created Action Group (email) and validated alert firing
+- Created Log Analytics workspace in `rg-monitoring-kql-lab`
+- Enabled VM monitoring for `vm-mgmt-01` via VM Insights (AMA + DCR)
+- Confirmed Heartbeat ingestion using KQL
+- Built log alert rule for Heartbeat missing (>15 minutes)
+- Created Action Group and validated notification delivery (email)
 
 ## Evidence
-- Evidence index: `screenshots/README.md`
+Screenshots are indexed here:
+- `screenshots/README.md`
+
+Key proof artifacts:
+- Workspace created
+- VM Insights enabled / connected to workspace
+- Heartbeat visible in KQL
+- Action group created
+- Alert rule created
+- (Optional) Alert fired + email received
 
 ## Documentation
 - Deployment: `docs/deployment.md`
@@ -36,5 +44,5 @@ See: `diagrams/README.md`
 - Troubleshooting: `runbooks/troubleshooting.md`
 - Teardown: `teardown/teardown.md`
 
-## Outcome
-Demonstrates AZ-104 skills in monitoring + alerting: AMA/VM Insights, DCR concepts, Log Analytics, KQL, alert rules, and operational troubleshooting.
+## Skills demonstrated (AZ-104 aligned)
+Azure Monitor • Log Analytics • AMA/DCR concepts • KQL queries • Log alerts • Action Groups • Operational troubleshooting • Cost control (teardown)
