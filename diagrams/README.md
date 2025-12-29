@@ -1,15 +1,13 @@
-# Diagrams — Monitoring + Alerts + KQL Lab
-
-This folder contains architecture diagrams that explain how monitoring data flows from `vm-mgmt-01` into Log Analytics, and how Azure Monitor alerts notify via an action group.
-
-## Diagram 1 — End-to-End Monitoring Flow (VM → Logs → Alert → Email)
-
-### Mermaid (rendered by GitHub)
-```mermaid
 flowchart LR
-  VM[vm-mgmt-01\n(Existing VM)] -->|Azure Monitor Agent (AMA)\nvia VM Insights + DCR| LAW[Log Analytics Workspace\nlaw-monitoring-lab]
-  LAW -->|KQL Queries\nHeartbeat / Logs| LOGS[Logs (KQL)]
-  LAW -->|Log Alert Condition\nHeartbeat missing > 15m| ALERT[Alert rule\nalert-heartbeat-missing-vm-mgmt-01]
-  ALERT -->|Action group| AG[ag-email-monitoring]
-  AG -->|Email notification| EMAIL[Email inbox]
+  VM["vm-mgmt-01<br/>(Existing VM)"]
+  LAW["Log Analytics Workspace<br/>law-monitoring-lab"]
+  LOGS["Logs (KQL)"]
+  ALERT["Alert rule<br/>alert-heartbeat-missing-vm-mgmt-01"]
+  AG["Action group<br/>ag-email-monitoring"]
+  EMAIL["Email inbox"]
 
+  VM -->|"Azure Monitor Agent (AMA)<br/>via VM Insights + DCR"| LAW
+  LAW -->|"KQL queries<br/>Heartbeat / Logs"| LOGS
+  LAW -->|"Log alert condition<br/>Heartbeat missing for 15 minutes"| ALERT
+  ALERT -->|"Action group"| AG
+  AG -->|"Email notification"| EMAIL
