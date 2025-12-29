@@ -1,3 +1,8 @@
+# Diagrams — Monitoring + Alerts + KQL Lab
+
+## Diagram — End-to-End Monitoring Flow
+
+```mermaid
 flowchart LR
   VM["vm-mgmt-01<br/>(Existing VM)"]
   LAW["Log Analytics Workspace<br/>law-monitoring-lab"]
