@@ -2,7 +2,9 @@
 
 ## Goal
 Monitor an existing VM (`vm-mgmt-01`) using Azure Monitor + Log Analytics and trigger an email alert when heartbeat stops (availability signal).
+
 Lab note: vm-mgmt-01 is the shared lab VM used across my portfolio for consistent monitoring and alert validation
+
 ## Scenario
 Ops needs a simple, reliable alert for VM availability:
 - Collect telemetry into a Log Analytics Workspace
